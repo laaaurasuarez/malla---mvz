@@ -69,3 +69,15 @@ const ramosOrdenados = ramos.sort((a, b) => {
 });
 
 ramosOrdenados.forEach(crearCaja);
+
+// Establecer estilo de contenedor de semestre horizontalmente
+for (let i = 1; i <= 10; i++) {
+  const div = document.getElementById(`sem${i}`);
+  if (div) {
+    div.style.display = "flex";
+    div.style.flexWrap = "wrap";
+    div.style.justifyContent = "center";
+    div.style.gap = "15px";
+    div.style.marginBottom = "40px";
+  }
+}
