@@ -1,4 +1,4 @@
-/* Estilo base general */
+/* Estilo base */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f2eb;
@@ -15,7 +15,7 @@ h1 {
   margin: 0;
 }
 
-/* Contenedor horizontal de toda la malla */
+/* Contenedor principal con scroll horizontal */
 #malla-linea {
   display: flex;
   flex-direction: row;
@@ -26,9 +26,11 @@ h1 {
   scroll-behavior: smooth;
 }
 
-/* Cada semestre será un bloque con fondo y borde */
+/* Cada bloque de semestre (una columna vertical) */
 .semestre-bloque {
   flex: 0 0 auto;
+  display: flex;                 
+  flex-direction: column;        
   background-color: #fdfaf5;
   border: 2px solid #8B4513;
   border-radius: 10px;
@@ -48,13 +50,13 @@ h1 {
   font-size: 1.1rem;
 }
 
-/* Estilo de cada caja de materia */
+/* Caja individual de cada materia */
 .ramo {
   background-color: #d2b48c;
   border: 2px solid #8B4513;
   border-radius: 10px;
   padding: 15px;
-  width: 220px;
+  width: 100%;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -62,12 +64,12 @@ h1 {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover */
+/* Hover visual */
 .ramo:hover {
   transform: scale(1.05);
 }
 
-/* Materia aprobada */
+/* Materia aprobada (clickeada) */
 .ramo.aprobado {
   background-color: #a78c66;
   color: #fff;
@@ -76,7 +78,7 @@ h1 {
   opacity: 0.6;
 }
 
-/* Materia bloqueada */
+/* Materia bloqueada (no se puede tocar aún) */
 .ramo.bloqueado {
   background-color: #eae2d3;
   color: #a29a91;
