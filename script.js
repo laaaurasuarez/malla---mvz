@@ -30,7 +30,49 @@ const ramos = [
   { nombre: "Parasitología y enfermedades parasitarias", id: "parasitologia", requiere: ["fisiologia", "anatomia"], desbloquea: ["infecciosas"], semestre: "sem4", orden: 3 },
   { nombre: "Patología general", id: "patologia_general", requiere: ["histologia"], desbloquea: ["infecciosas", "patologia_sistematica"], semestre: "sem4", orden: 4 },
   { nombre: "Proyectos de investigación", id: "proyectos", requiere: ["epistemologia"], semestre: "sem4", orden: 5 },
-  { nombre: "Suelos y recursos forrajeros", id: "suelos", requiere: ["quimica_organica", "iniciacion"], desbloquea: ["nutricion_rumiantes"], semestre: "sem4", orden: 6 }
+  { nombre: "Suelos y recursos forrajeros", id: "suelos", requiere: ["quimica_organica", "iniciacion"], desbloquea: ["nutricion_rumiantes"], semestre: "sem4", orden: 6 },
+
+  // TERCER AÑO – SEMESTRE V
+  { nombre: "Enfermedades infecciosas", id: "infecciosas", requiere: ["patologia_general", "parasitologia", "microbiologia", "inmunologia", "fisiologia", "anatomia"], desbloquea: ["epidemiologia", "farmacologia", "patologia_clinica", "reproduccion"], semestre: "sem5", orden: 1 },
+  { nombre: "Nutrición de monogástricos", id: "nutricion_mono", requiere: ["bioquimica"], semestre: "sem5", orden: 2 },
+  { nombre: "Nutrición de rumiantes", id: "nutricion_rumiantes", requiere: ["suelos"], semestre: "sem5", orden: 3 },
+  { nombre: "Patología sistémica", id: "patologia_sistematica", requiere: ["patologia_general"], semestre: "sem5", orden: 4 },
+  { nombre: "Herencia, variación y mejoramiento genético animal", id: "herencia", requiere: ["estadistica"], semestre: "sem5", orden: 5 },
+  { nombre: "Constitución política", id: "constitucion", semestre: "sem5", orden: 6 },
+
+  // TERCER AÑO – SEMESTRE VI
+  { nombre: "Medicina veterinaria preventiva y epidemiológica", id: "epidemiologia", requiere: ["infecciosas"], desbloquea: ["salud_publica", "medicina_interna"], semestre: "sem6", orden: 1 },
+  { nombre: "Farmacología y terapéutica veterinaria", id: "farmacologia", requiere: ["infecciosas"], desbloquea: ["cirugia", "medicina_interna", "toxicologia"], semestre: "sem6", orden: 2 },
+  { nombre: "Patología clínica", id: "patologia_clinica", requiere: ["infecciosas"], semestre: "sem6", orden: 3 },
+  { nombre: "Semiología", id: "semiologia", requiere: ["fisiologia", "anatomia"], desbloquea: ["cirugia", "medicina_interna"], semestre: "sem6", orden: 4 },
+  { nombre: "Desarrollo rural", id: "desarrollo", requiere: ["sociologia"], semestre: "sem6", orden: 5 },
+  { nombre: "Sistema de producción", id: "sistema", semestre: "sem6", orden: 6 },
+
+  // CUARTO AÑO – SEMESTRE VII
+  { nombre: "Reproducción animal", id: "reproduccion", requiere: ["infecciosas"], semestre: "sem7", orden: 1 },
+  { nombre: "Cirugía veterinaria", id: "cirugia", requiere: ["semiologia", "farmacologia"], semestre: "sem7", orden: 2 },
+  { nombre: "Salud pública veterinaria", id: "salud_publica", requiere: ["epidemiologia"], semestre: "sem7", orden: 3 },
+  { nombre: "Medicina interna", id: "medicina_interna", requiere: ["epidemiologia", "farmacologia", "semiologia"], semestre: "sem7", orden: 4 },
+  { nombre: "Toxicología médica y de la producción", id: "toxicologia", requiere: ["farmacologia"], semestre: "sem7", orden: 5 },
+  { nombre: "Administración y gerencia de empresas pecuarias", id: "admin", semestre: "sem7", orden: 6 },
+
+  // CUARTO AÑO – SEMESTRE VIII
+  { nombre: "Formulación y evaluación de proyectos", id: "proyectos2", semestre: "sem8", orden: 1 },
+  { nombre: "Clínica de grandes animales", id: "clinica_grandes", requiere: [], semestre: "sem8", orden: 2 },
+  { nombre: "Clínica de pequeños animales", id: "clinica_pequenos", requiere: [], semestre: "sem8", orden: 3 },
+
+  // QUINTO AÑO – SEMESTRE IX
+  { nombre: "Producción y salud de ovinos y caprinos", id: "ovinos", semestre: "sem9", orden: 1 },
+  { nombre: "Producción y salud avícola", id: "avicola", semestre: "sem9", orden: 2 },
+  { nombre: "Producción y salud de equinos", id: "equinos", semestre: "sem9", orden: 3 },
+  { nombre: "Producción y salud de porcinos", id: "porcinos", semestre: "sem9", orden: 4 },
+  { nombre: "Producción y salud bovina", id: "bovina", semestre: "sem9", orden: 5 },
+  { nombre: "Tecnología de alimentos", id: "alimentos", semestre: "sem9", orden: 6 },
+  { nombre: "Industrias pecuarias", id: "industrias", semestre: "sem9", orden: 7 },
+
+  // QUINTO AÑO – SEMESTRE X
+  { nombre: "Pasantía", id: "pasantia", semestre: "sem10", orden: 1 },
+  { nombre: "Opción de grado", id: "grado", semestre: "sem10", orden: 2 }
 ];
 
 const aprobados = new Set();
@@ -62,7 +104,6 @@ function desbloquear(ramo) {
   });
 }
 
-// Ordenar por semestre y orden dentro del semestre
 const ramosOrdenados = ramos.sort((a, b) => {
   if (a.semestre !== b.semestre) return a.semestre.localeCompare(b.semestre);
   return (a.orden || 0) - (b.orden || 0);
@@ -70,14 +111,15 @@ const ramosOrdenados = ramos.sort((a, b) => {
 
 ramosOrdenados.forEach(crearCaja);
 
-// Establecer estilo de contenedor de semestre horizontalmente
 for (let i = 1; i <= 10; i++) {
   const div = document.getElementById(`sem${i}`);
   if (div) {
     div.style.display = "flex";
-    div.style.flexWrap = "wrap";
-    div.style.justifyContent = "center";
-    div.style.gap = "15px";
-    div.style.marginBottom = "40px";
+    div.style.flexDirection = "column";
+    div.style.flexWrap = "nowrap";
+    div.style.justifyContent = "flex-start";
+    div.style.alignItems = "center";
+    div.style.gap = "10px";
+    div.style.minHeight = "200px";
   }
 }
